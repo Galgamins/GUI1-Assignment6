@@ -1,9 +1,9 @@
 //Main function to generate table. Everything goes through this function.
 function generateTable(multplierMin, multplierMax, multiplicandMin, multiplicandMax) {
-  var multiplier1 = multplierMin.value;
-  var multiplier2 = multplierMax.value;
-  var multiplicand1 = multiplicandMin.value;
-  var multiplicand2 = multiplicandMax.value;
+  var multiplier1 = Number(multplierMin.value);
+  var multiplier2 = Number(multplierMax.value);
+  var multiplicand1 = Number(multiplicandMin.value);
+  var multiplicand2 = Number(multiplicandMax.value);
 
   validateInput(multiplier1, multiplier2, multiplicand1, multiplicand2);
 
