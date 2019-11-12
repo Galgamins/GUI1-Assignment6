@@ -1,14 +1,23 @@
 //Main function to generate table. Everything goes through this function.
 function generateTable(multplierMin, multplierMax, multiplicandMin, multiplicandMax) {
-  var multiplier1 = Number(multplierMin.value);
-  var multiplier2 = Number(multplierMax.value);
-  var multiplicand1 = Number(multiplicandMin.value);
-  var multiplicand2 = Number(multiplicandMax.value);
-
-  validateInput(multiplier1, multiplier2, multiplicand1, multiplicand2);
-
   var table = document.getElementById("resultTable");
   table.innerHTML = ""; //Clears table contents in case there was previously cells in there
+
+  var multiplier1 = multplierMin.value;
+  var multiplier2 = multplierMax.value;
+  var multiplicand1 = multiplicandMin.value;
+  var multiplicand2 = multiplicandMax.value;
+
+  //Pass as strings to handle input "-"
+  if(validateInput(multiplier1, multiplier2, multiplicand1, multiplicand2) == false){
+    return;
+  }
+
+  //convert to Number to handle floating point inputs
+  multiplier1 = Number(multiplier1);
+  multiplier2 = Number(multiplier2);
+  multiplicand1 = Number(multiplicand1);
+  multiplicand2 = Number(multiplicand2);
 
   var rowHead = table.insertRow(0);
   var cell = rowHead.insertCell(-1);
@@ -16,6 +25,7 @@ function generateTable(multplierMin, multplierMax, multiplicandMin, multiplicand
 
   //Fills in horizontal header
   for (i = multiplier1; i <= multiplier2; i++) {
+    console.log(i);
     var cell = rowHead.insertCell(-1);
     cell.innerHTML = i;
   }
@@ -36,15 +46,24 @@ function generateTable(multplierMin, multplierMax, multiplicandMin, multiplicand
 function validateInput(multiplier1, multiplier2, multiplicand1, multiplicand2) {
   if (multiplier1 == "" || multiplier2 == "" || multiplicand1 == "" || multiplicand2 == "") {
     alert("You must enter a number in all of the boxes!");
-    exit();
+    return false;
   }
+
+  //Convert to Number to compare numerical value rather than first digit
+  multiplier1 = Number(multiplier1);
+  multiplier2 = Number(multiplier2);
+  multiplicand1 = Number(multiplicand1);
+  multiplicand2 = Number(multiplicand2);
 
   if (multiplier1 > multiplier2) {
     alert("The first multiplier must be less than or equal to the second multiplier!");
-    exit();
+    return false;
   }
-  if (multiplicand1 > multiplicand2) {
+  else if (multiplicand1 > multiplicand2) {
     alert("The first multiplicand must be less than or equal to the second multiplicand!");
-    exit();
+    return false;
+  }
+  else {
+    return true;
   }
 }
